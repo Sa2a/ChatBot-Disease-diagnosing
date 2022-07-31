@@ -7,21 +7,14 @@ Created on Sat Jul 30 18:56:11 2022
 
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-import seaborn as sns
-from mlxtend.frequent_patterns import apriori
-from mlxtend.frequent_patterns import fpgrowth
-from mlxtend.frequent_patterns import association_rules
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.preprocessing import StandardScaler
+
 directory = "D:DEBI/Uottawa/Data Science Applications/project/ChatBot-Disease-diagnosing/dataset/"
 dataset = pd.read_csv(directory+'new_dataset.csv')
 print(dataset.head())
 
 print(dataset.describe(include = 'all'))
 
-
+'''
 weight_map = {
     "A" :.85,
 "B" : 1,
@@ -55,7 +48,7 @@ for i in range(len(test_df)):
 #new_df = new_df.fillna(0)
 
 #new_df.replace(0, np.nan, inplace=True)
-
+'''
 
 '''      
 itemset = ["A","B","C","D","E"]
@@ -214,8 +207,7 @@ print("weighted support:",best_s)
 
 if len(potential_disease)>1:
     print("please refer to a specialized Doctor. You have a potential to have ",potential_disease)
-else:
-    
+
 
 
 # l1 = [1,2,3]

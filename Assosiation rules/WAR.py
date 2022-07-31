@@ -107,6 +107,8 @@ def get_disease(inputset,inputset_no = []):
 print(get_disease(inputset))
 
 
+
+
 # print("disease:",the_one)
 # print("Lift:",max_lift)
 # print("confidence:",best_c)  

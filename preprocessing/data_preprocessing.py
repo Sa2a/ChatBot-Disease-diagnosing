@@ -7,16 +7,8 @@ Created on Sat Jul 30 01:33:46 2022
 
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC
-from sklearn.metrics import f1_score, accuracy_score, confusion_matrix
 import seaborn as sns
-from tkinter import *
-from tkinter import messagebox
-import sys 
-import urllib
-import urllib.request
+
 
 directory = "D:DEBI/Uottawa/Data Science Applications/project/ChatBot-Disease-diagnosing/dataset/"
 dataset = pd.read_csv(directory+'dataset.csv')
@@ -51,8 +43,7 @@ sns.countplot(data = df, x = "Disease")
 
 df_encoded = pd.get_dummies(df, columns = ["Disease"], drop_first=True)
 
-df_encoded = OneHotEncoder().fit_transform(df)
-df_encoded.toarray()
+
 
 weight_data['Symptom'] = weight_data['Symptom'].apply(lambda x: x.replace(' ',''))
 weight_data.to_csv(directory+"Symptom-severity.csv",index= False)
@@ -63,13 +54,13 @@ is_duplicate = weight_data['Symptom'].duplicated()
 weight_data.drop(weight_data.index[np.where(is_duplicate == True)], inplace= True)
 
 
+symptoms = weight_data['Symptom'].unique()
 
  #Encoding the the symptoms with their severity weight
 new_dataset = pd.DataFrame(columns=(np.concatenate((['Disease' ],symptoms),axis=0)))
 new_dataset.Disease= df.Disease
 
 #vals = df.values
-symptoms = weight_data['Symptom'].unique()
 
 for r in range(len(df.Disease)):
     for c in range(1,len(df.columns)):

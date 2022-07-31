@@ -7,13 +7,9 @@ Created on Sat Jul 30 14:15:18 2022
 
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-import seaborn as sns
+
 from mlxtend.frequent_patterns import apriori
-from mlxtend.frequent_patterns import fpgrowth
 from mlxtend.frequent_patterns import association_rules
-from sklearn.preprocessing import OneHotEncoder
 
 directory = "D:DEBI/Uottawa/Data Science Applications/project/ChatBot-Disease-diagnosing/dataset/"
 dataset = pd.read_csv(directory+'new_dataset.csv')
@@ -21,7 +17,7 @@ print(dataset.head())
 
 print(dataset.describe(include = 'all'))
 
-df_encoded = pd.get_dummies(new_dataset,prefix="Disease",prefix_sep='|' ,columns = ["Disease"], drop_first=True)
+df_encoded = pd.get_dummies(dataset,prefix="Disease",prefix_sep='|' ,columns = ["Disease"], drop_first=True)
 
 
 
