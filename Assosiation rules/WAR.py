@@ -8,8 +8,6 @@ Created on Sun Jul 31 10:24:23 2022
 import pandas as pd
 import numpy as np
 
-
-
 def cotains_items(items, row):
     for i in items:
         if np.isnan(row[i]):
@@ -65,7 +63,10 @@ rules_detais = rules.describe(include = 'all')
 sum_transactions = sum_mean_t(df_encoded)
 lift_threshold = min(rules.lift) if min(rules.lift)>1 else 1
 
+from ast import literal_eval
 
+
+rules.itemset= rules.itemset.apply(literal_eval)
 
 inputset = ["high_fever"]
 inputset_no = ["extra_marital_contacts"]
@@ -101,37 +102,9 @@ def get_disease(inputset,inputset_no = []):
             # best_s = s
             
     return (max_lift, the_one, remaining_symptoms, potential_disease)
-            
+
+
 print(get_disease(inputset))
-
-max_lift = 0    
-my_rules = rules.copy()
-my_rules.itemset = get_my_rules(inputset, inputset_no, rules.itemset)
-my_rules.drop(my_rules[~pd.notna(my_rules.itemset)].index, inplace = True)
-my_rules.sort_values(by=['lift'], ascending=[False],inplace= True)
-my_rules.reset_index(drop=True, inplace=True)
-
-remaining_symptoms = set(my_rules.itemset[0][:-1]).difference(set(inputset))
-potential_disease = my_rules.Disease.unique()
-
-# np.concatenate(np.array(['Disease|']*len(potential_disease)),potential_disease)
-
-max_lift = 0
-the_one = ""
-# best_c = 0
-# best_s = 0
-for x in potential_disease:
-    d =["Disease|"+x]
-    newInputset = np.concatenate((inputset,d))
-    # s = sup(df_encoded , newInputset, sum_transactions)
-    # c = conf(df_encoded , newInputset, sum_transactions)
-    l = lift(df_encoded , newInputset, sum_transactions)
-    if(l>max_lift):
-        max_lift = l
-        the_one = x
-        # best_c= c 
-        # best_s = s
-        
 
 
 # print("disease:",the_one)
