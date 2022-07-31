@@ -242,10 +242,20 @@ print(get_disease(inputset,inputset_no=[]))
 - [@NadaAbdellatif]
 - [@NadaMontaser]
 
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
+## Challenges:<br>
+* Few Dataset.<br>
+ 41 diseases with 304 rules.<br>
+* Lake of important information.<br>
+Disease severity.<br>
+Symptom priority and importance.<br>
+Symptom duration.<br>
+
+##  Future work <a name = "acknowledgement"></a>
+we have the symptoms severity level but we don’t have the disease severity. Also for each Disease, we should apply a priority and importance level for the symptom with respect to that disease. Also for how much time we should consider each symptom.
+
+Collect and extract more valuable information and gather a higher quality dataset. With the help of the doctors and other sources of information like books.
+
+
