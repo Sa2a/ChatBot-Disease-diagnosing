@@ -81,6 +81,7 @@ for i in range(len(new_df)):
     
 print(np.nansum(contained_sets)/sum_trans_w)
 '''
+
 def cotains_items(items, row):
     for i in items:
         if np.isnan(row[i]):
@@ -116,13 +117,8 @@ def lift(df_encoded , itemset, sum_transactions):
     s_B = sup(df_encoded , itemset[-1:], sum_transactions)
     return s_A_B/(s_A*s_B)
 
-sum_t = sum_mean_t(df_new)
-items = ["A"]
-s = sup(df_new , items, sum_t)
-s
 
-
-from itertools import combinations
+#from itertools import combinations
 
 directory = "D:DEBI/Uottawa/Data Science Applications/project/ChatBot-Disease-diagnosing/dataset/"
 dataset = pd.read_csv(directory+'new_dataset.csv')
@@ -134,11 +130,12 @@ for c in my_c:
 
 df_encoded.replace(0, np.nan, inplace=True)
 
+df_encoded.to_csv(directory+'dataset_encoded.csv',index= False)
+
 def get_antecedents_consequents(df_encoded):
     cols = df_encoded.columns.values
     mask = df_encoded.gt(0.0).values
     out = [cols[x].tolist() for x in mask]
-    
     return out
 itemsets = get_antecedents_consequents(df_encoded)
 
@@ -161,13 +158,20 @@ for itemset in itemsets:
 lift_threshold = min(lifts) if min(lifts)>1 else 1
 
 rules = pd.DataFrame({"itemset":itemsets,"Disease":diseases,"support": suports,"confidence": confidences,"lift": lifts,"ItemSetLen":num_items})
+rules.to_csv(directory+'rules.csv',index= False)
+
 rules_detais = rules.describe(include = 'all')
 
-def get_my_rules2(inputset,inputset_no, itemsets):
+def get_my_rules(inputset,inputset_no, itemsets):
     if bool(inputset_no):
         return itemsets.apply(lambda item: item if set(inputset).issubset(set(item)) and not set(inputset_no).issubset(set(item)) else None)
     return itemsets.apply(lambda item: item if set(inputset).issubset(set(item)) else None)
+
+
+
 # inputset = ["itching","skin_rash", "dischromic_patches"]
+
+
 inputset = ["high_fever"]
 inputset_no = ["extra_marital_contacts"]
 inputset_no=[]
@@ -176,16 +180,12 @@ max_lift = 0
     
 
 my_rules = rules.copy()
-my_rules.itemset = get_my_rules2(inputset, inputset_no, rules.itemset)
-
+my_rules.itemset = get_my_rules(inputset, inputset_no, rules.itemset)
 my_rules.drop(my_rules[~pd.notna(my_rules.itemset)].index, inplace = True)
-
-my_rules.sort_values(by=['ItemSetLen','lift'], ascending=[True,False],inplace= True)
-
+my_rules.sort_values(by=['lift'], ascending=[False],inplace= True)
 my_rules.reset_index(drop=True, inplace=True)
 
 remaining_symptoms = set(my_rules.itemset[0][:-1]).difference(set(inputset))
-
 potential_disease = my_rules.Disease.unique()
 
 # np.concatenate(np.array(['Disease|']*len(potential_disease)),potential_disease)
@@ -212,9 +212,10 @@ print("Lift:",max_lift)
 print("confidence:",best_c)  
 print("weighted support:",best_s)  
 
-
-
-
+if len(potential_disease)>1:
+    print("please refer to a specialized Doctor. You have a potential to have ",potential_disease)
+else:
+    
 
 
 # l1 = [1,2,3]
