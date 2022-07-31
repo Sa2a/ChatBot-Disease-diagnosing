@@ -41,6 +41,8 @@ https://bot.dialogflow.com/0e9384e4-68e4-4807-948e-8d1deba06185
 
 ![image](https://user-images.githubusercontent.com/34524576/182043459-935c0044-7906-444a-8a81-4dead30dc72f.png)
 
+## The bot succesfully recognized the symptoms and predicted the disease which is "Typhoid"
+![image](https://user-images.githubusercontent.com/34524576/182044503-15ab83d4-ff2e-4027-ae24-dd4ab372ca64.png)
 
 ## 💭 How it works <a name = "working"></a>
 
