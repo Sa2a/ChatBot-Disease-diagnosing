@@ -2,7 +2,7 @@
 """
 Created on Sat Jul 30 01:33:46 2022
 
-@author: river
+@author: Sa2a
 """
 
 import pandas as pd
@@ -41,8 +41,18 @@ df = pd.DataFrame(s, columns=dataset.columns)
 
 df = df.fillna(0)
 df.head()
+print("len before", len(df))
+df_dublicated = df.duplicated()
+df.drop(df.index[np.where(df_dublicated == True)], inplace= True)
+df.reset_index(drop=True,inplace= True)
 
+print("len after", len(df))
+sns.countplot(data = df, x = "Disease")
 
+df_encoded = pd.get_dummies(df, columns = ["Disease"], drop_first=True)
+
+df_encoded = OneHotEncoder().fit_transform(df)
+df_encoded.toarray()
 
 weight_data['Symptom'] = weight_data['Symptom'].apply(lambda x: x.replace(' ',''))
 weight_data.to_csv(directory+"Symptom-severity.csv",index= False)
@@ -52,15 +62,9 @@ sns.countplot(x="Symptom",data=weight_data)
 is_duplicate = weight_data['Symptom'].duplicated()
 weight_data.drop(weight_data.index[np.where(is_duplicate == True)], inplace= True)
 
-print("len before", len(df))
-df_dublicated = df.duplicated()
-df.drop(df.index[np.where(df_dublicated == True)], inplace= True)
-df.reset_index(drop=True,inplace= True)
 
-print("len after", len(df))
-sns.countplot(data = df, x = "Disease")
 
-#Encoding the the symptoms with their severity weight
+ #Encoding the the symptoms with their severity weight
 new_dataset = pd.DataFrame(columns=(np.concatenate((['Disease' ],symptoms),axis=0)))
 new_dataset.Disease= df.Disease
 
