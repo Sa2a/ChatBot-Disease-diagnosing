@@ -144,7 +144,8 @@ suggest_syn('puke')
 ```
 output: ['vomit','pain','swollen blood vessel', 'dark urine']
 ```
-## AR evaluate support, conf, lift
+## AR evaluate support, conf, lift<br>
+file: Assosiation rules/WAR.py 
 ```
 def cotains_items(items, row):
     for i in items:
@@ -194,7 +195,8 @@ def get_my_rules(inputset,inputset_no, itemsets):
 ```
 
 ## Get disease<br>
-evaluate the input symptoms and get the maximum lift with its associated disease and the ramaining symptoms to ask the paten back, and the set of potential diseases.
+evaluate the input symptoms and get the maximum lift with its associated disease and the ramaining symptoms to ask the paten back, and the set of potential diseases.<br>
+file: Assosiation rules/WAR.py 
 ```
 def get_disease(inputset,inputset_no = []):
     max_lift = 0    
