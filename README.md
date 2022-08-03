@@ -238,9 +238,9 @@ print(get_disease(inputset,inputset_no=[]))
 ## ✍️ Authors <a name = "authors"></a>
 
 - [@Sa2a]
-- [@Hadeer]
-- [@NadaAbdellatif]
-- [@NadaMontaser]
+- [@hadeer98]
+- [@nada320]
+- [@NadaMontasser]
 
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
