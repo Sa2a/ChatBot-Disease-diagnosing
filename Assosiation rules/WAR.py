@@ -68,7 +68,7 @@ from ast import literal_eval
 
 rules.itemset= rules.itemset.apply(literal_eval)
 
-inputset = ["high_fever"]
+inputset = ["high_fever","extra_marital_contacts"]
 inputset_no = ["extra_marital_contacts"]
 inputset_no=[]
 
@@ -87,26 +87,23 @@ def get_disease(inputset,inputset_no = []):
     
     max_lift = 0
     the_one = ""
-    # best_c = 0
+    best_c = 0
     # best_s = 0
     for x in potential_disease:
         d =["Disease|"+x]
         newInputset = np.concatenate((inputset,d))
         # s = sup(df_encoded , newInputset, sum_transactions)
-        # c = conf(df_encoded , newInputset, sum_transactions)
+        c = conf(df_encoded , newInputset, sum_transactions)
         l = lift(df_encoded , newInputset, sum_transactions)
         if(l>max_lift):
             max_lift = l
             the_one = x
-            # best_c= c 
+            best_c= c 
             # best_s = s
             
-    return (max_lift, the_one, remaining_symptoms, potential_disease)
-
-
-print(get_disease(inputset))
-
-
+    return (max_lift,best_c, the_one, remaining_symptoms, potential_disease)
+inputset = ["high_fever","extra_marital_contacts"]
+print(get_disease(inputset,inputset_no=[]))
 
 
 # print("disease:",the_one)
@@ -116,3 +113,35 @@ print(get_disease(inputset))
 
 # if len(potential_disease)>1:
 #     print("please refer to a specialized Doctor. You have a potential to have ",potential_disease)
+
+# Evaluation 
+from itertools import combinations
+
+r = rules[rules.ItemSetLen == 10]
+r.reset_index(drop= True,inplace = True)
+s, d, n = r.itemset[0][:-1], r.Disease[0], r.ItemSetLen[0]
+insights = []
+for i in range(1,n):
+    s_comp = combinations(s,i)
+    for i_comp in list(s_comp):    
+        print(i_comp)
+        inputset = list(i_comp)
+        (max_lift,best_c,  the_one, remaining_symptoms, potential_disease) = get_disease(inputset)
+        insights.append([inputset, the_one == d, max_lift,best_c, the_one,d, len(remaining_symptoms), len(potential_disease)])
+
+insights_df = pd.DataFrame(insights, columns =["inputset","prediction","lift","confidence","predicted_diease","actual_disease","num_remaining_symptoms","num_potential_disease"])
+
+
+
+insights_df[insights_df.prediction == False ].plot(kind= "bar",xlabel = "index",y ="lift",ylabel = "lift",title="wrong prediction sets")
+
+insights_df[insights_df.prediction == False ].plot(kind= "bar",xlabel = "index",y ="confidence",ylabel = "confidence",title="wrong prediction sets")
+
+insights_df[insights_df.prediction == True ].plot(kind= "hist",xlabel = "lift",y ="lift",ylabel = "lift",title="true prediction sets")
+
+insights_df[insights_df.prediction == True ].plot(kind= "hist",xlabel = "num_potential_disease",y ="num_potential_disease",ylabel = "lift",title="true prediction sets")
+insights_df[insights_df.prediction == False ].plot(kind= "hist",xlabel = "num_potential_disease",y ="num_potential_disease",ylabel = "lift",title="false prediction sets")
+
+import seaborn as sb
+dataplot = sb.heatmap(insights_df.corr(), cmap="YlGnBu", annot=True)
+  

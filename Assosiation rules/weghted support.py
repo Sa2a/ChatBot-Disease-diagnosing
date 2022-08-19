@@ -80,6 +80,11 @@ def cotains_items(items, row):
         if np.isnan(row[i]):
              return np.nan
     return np.nanmean(row)
+def cotains_items_bool(items, row):
+    for i in items:
+        if np.isnan(row[i]):
+             return False
+    return True
 def sum_mean_t(new_df):
     sum_trans_w = 0
     for i in range(len(new_df)):
@@ -103,6 +108,19 @@ def conf(df_encoded , itemset, sum_transactions):
     s_A = sup(df_encoded , itemset[:-1], sum_transactions)
     return s_A_B/s_A
 
+def conf2(df_encoded , itemset):
+    contained_sets= []
+    n_A_B = 0
+    n_A = 0 
+    for i in range(len(df_encoded)):
+        #print( df_encoded.iloc[i,:])
+        if cotains_items_bool(itemset, df_encoded.iloc[i,:]):
+            n_A_B +=1
+            
+        if cotains_items_bool(itemset[:-1], df_encoded.iloc[i,:]):
+            n_A +=1
+        
+    return n_A_B/n_A
 
 def lift(df_encoded , itemset, sum_transactions):
     s_A_B = sup(df_encoded , itemset, sum_transactions)
@@ -117,6 +135,11 @@ directory = "D:DEBI/Uottawa/Data Science Applications/project/ChatBot-Disease-di
 dataset = pd.read_csv(directory+'new_dataset.csv')
 
 df_encoded = pd.get_dummies(dataset,prefix="Disease",prefix_sep='|' ,columns = ["Disease"])
+col = df_encoded.columns
+my_c = []
+for c in col.values:
+    my_c.append(c) if c.startswith("Disease|") else None
+
 for c in my_c:
     df_encoded[c]=df_encoded[c].apply(lambda x: .1 if x>0 else x)
     
