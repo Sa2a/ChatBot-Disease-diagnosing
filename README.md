@@ -31,7 +31,7 @@
 
 ## 🧐 About <a name = "about"></a>
 
-Chatbots in the healthcare provides either predictive diagnosis or other assistantships like booking an appointment.
+Chatbots in the healthcare provides either predictive diagnosis. It is like having a chat with a doctor telling him what you feel and he diagonsis and tells you what you have and what you should do.
 
 Help doctors and medical staff to deal with patients in better way and reduce their efforts with the help of technology. Chatbots can play a major role in reshaping the healthcare industry by providing either predictive diagnosis or any other assistantships like booking an appointment.
 
