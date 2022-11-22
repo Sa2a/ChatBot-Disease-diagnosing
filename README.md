@@ -34,8 +34,8 @@
 Chatbots in the healthcare provides either predictive diagnosis. It is like having a chat with a doctor telling him what you feel and he diagonsis and tells you what you have and what you should do.
 
 Help doctors and medical staff to deal with patients in better way and reduce their efforts with the help of technology. Chatbots can play a major role in reshaping the healthcare industry by providing either predictive diagnosis or any other assistantships like booking an appointment.
-
-
+<br>**Report**:https://github.com/Sa2a/ChatBot-Disease-diagnosing/blob/main/report%20and%20presentation/report.pdf
+<br>**Presentation**:https://github.com/Sa2a/ChatBot-Disease-diagnosing/blob/main/report%20and%20presentation/NLP%20Group1.pptx
 ## 🎥 Demo / Working <a name = "demo"></a>
 https://bot.dialogflow.com/0e9384e4-68e4-4807-948e-8d1deba06185
 
